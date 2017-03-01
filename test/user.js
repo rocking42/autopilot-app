@@ -69,7 +69,7 @@ describe('/POST users', () => {
 			lastName: 'Seinfeld',
 			email: 'js@gmail.com',
 		};
-		const currentData = jsonfile.readFileSync('./users.json');
+		const currentData = jsonfile.readFileSync('./assets/data/users.json');
 		chai.request(url)
 		.post('/users')
 		.send(user)
@@ -87,7 +87,7 @@ describe('/POST users', () => {
 			currentUser.should.have.property('lastName');
 			currentUser.should.have.property('email');
 
-			jsonfile.writeFileSync('./users.json', currentData);
+			jsonfile.writeFileSync('./assets/data/users.json', currentData);
 			done();
 		});
 	});

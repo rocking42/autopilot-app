@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // Read data from JSON and display it to the user
 app.get('/users', (req, res) => {
-	const data = jsonfile.readFileSync('./users.json');
+	const data = jsonfile.readFileSync('./assets/data/users.json');
 	res.send(data.users);
 });
 // Update JSON file provided correct form data is given
@@ -21,7 +21,7 @@ app.post('/users', (req, res) => {
 	if (formError(req.body)) {
 		res.status(403).send('error with form data');
 	} else {
-		const file = './users.json';
+		const file = './assets/data/users.json';
 		const obj = jsonfile.readFileSync(file);
 		obj.users.push(req.body);
 		jsonfile.writeFileSync(file, obj);
