@@ -1,0 +1,22 @@
+{
+  "name": "autopilot-task",
+  "version": "1.0.0",
+  "description": "A small http server for autopilot",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "mocha --timeout 10000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "jsonfile": "^2.4.0"
+  }
+}
