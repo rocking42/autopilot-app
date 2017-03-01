@@ -4,8 +4,8 @@
   "description": "A small http server for autopilot",
   "main": "main.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha --timeout 10000",
+    "start": "NODE_ENV=dev && node app.js",
+    "test": "mocha",
     "lint": "eslint ."
   },
   "author": "",

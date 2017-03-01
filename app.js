@@ -2,7 +2,7 @@ const jsonfile = require('jsonfile');
 const bodyParser = require('body-parser');
 const express = require('express');
 // Import form error handling
-const formError = require('./errors').formError;
+const formError = require('./errorHandlers').formError;
 const app = express();
 const port = 3000;
 // Middlewares for reading the request body
@@ -33,3 +33,5 @@ app.post('/users', (req, res) => {
 app.listen(port, function () {
 	console.log(`Application running on port ${port}`);
 });
+
+module.exports = app;

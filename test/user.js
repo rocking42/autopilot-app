@@ -17,13 +17,18 @@ describe('/GET users', () => {
 			}
 			res.should.have.status(200);
 			res.body.should.be.a('array');
-			res.body.length.should.be.eql(4);
 			done();
 		});
 	});
 });
 
 describe('/POST users', () => {
+	// Repopulate the database after each test
+	const currentData = jsonfile.readFileSync('./assets/data/users.json');
+	afterEach(function (done) {
+		jsonfile.writeFileSync('./assets/data/users.json', currentData);
+		done();
+	});
 
 	it('should not POST a user when missing a field', (done) => {
 		const user = {
@@ -48,7 +53,7 @@ describe('/POST users', () => {
 			firstName: 'Oliver',
 			lastName: 'Twist',
 			email: 'o@gmail.com',
-			badNews: 'I\m coming in',
+			badNews: 'I\'m coming in',
 		};
 		chai.request(url)
     .post('/users')
@@ -69,7 +74,6 @@ describe('/POST users', () => {
 			lastName: 'Seinfeld',
 			email: 'js@gmail.com',
 		};
-		const currentData = jsonfile.readFileSync('./assets/data/users.json');
 		chai.request(url)
 		.post('/users')
 		.send(user)
@@ -77,17 +81,17 @@ describe('/POST users', () => {
 			if (err) {
 				console.log(err);
 			}
-			const currentUser = res.body[res.body.length - 1];
+			// store the newest addition in a var
+			let currentUser = res.body[res.body.length - 1];
 
 			res.should.have.status(200);
-
+			res.body.should.be.a('array');
 			res.body.length.should.be.eql(currentData.users.length + 1);
 
 			currentUser.should.have.property('firstName');
 			currentUser.should.have.property('lastName');
 			currentUser.should.have.property('email');
 
-			jsonfile.writeFileSync('./assets/data/users.json', currentData);
 			done();
 		});
 	});

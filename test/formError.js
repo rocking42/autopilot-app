@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars, no-undef*/
-const formError = require('../errors').formError;
+const formError = require('../errorHandlers').formError;
 const chai = require('chai');
 
 describe('form error function handling', () => {
