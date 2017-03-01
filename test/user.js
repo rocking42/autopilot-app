@@ -33,10 +33,10 @@ describe('/POST users', () => {
 	    .send(user)
 	    .end((err, res) => {
         if (err) {
-          console.log(err);
+          console.log(err.status);
         }
-		  	res.should.have.status(200);
-        res.text.should.eql('error with data');
+		  	res.should.have.status(400);
+        res.text.should.eql('error with form data');
         done();
       });
   });
@@ -53,10 +53,10 @@ describe('/POST users', () => {
       .send(user)
       .end((err, res) => {
         if (err) {
-          console.log(err);
+          console.log(err.status);
         }
-        res.should.have.status(200);
-        res.text.should.eql('error with data');
+        res.should.have.status(400);
+        res.text.should.eql('error with form data');
         done();
       });
   });
@@ -68,7 +68,6 @@ describe('/POST users', () => {
 	  	email: 'js@gmail.com'
 	  };
     const currentData = jsonfile.readFileSync('./users.json');
-    console.log(currentData.users.length);
     chai.request(url)
       .post('/users')
       .send(user)
@@ -84,7 +83,7 @@ describe('/POST users', () => {
         currentUser.should.have.property('firstName');
         currentUser.should.have.property('lastName');
 		  	currentUser.should.have.property('email');
-        
+
         jsonfile.writeFileSync('./users.json', currentData)
         done();
       });

@@ -15,7 +15,7 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
   if (formError(req.body)) {
-    res.send("error with data")
+    res.status(400).send("error with form data")
   } else {
     const file = './users.json'
     const obj = jsonfile.readFileSync(file);
