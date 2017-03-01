@@ -23,6 +23,7 @@ describe('/GET users', () => {
 });
 
 describe('/POST users', () => {
+
   it('should not POST a user when missing a field', (done) => {
     const user = {
 	  	firstName: 'James',
@@ -35,7 +36,7 @@ describe('/POST users', () => {
         if (err) {
           console.log(err.status);
         }
-		  	res.should.have.status(400);
+		  	res.should.have.status(403);
         res.text.should.eql('error with form data');
         done();
       });
@@ -55,7 +56,7 @@ describe('/POST users', () => {
         if (err) {
           console.log(err.status);
         }
-        res.should.have.status(400);
+        res.should.have.status(403);
         res.text.should.eql('error with form data');
         done();
       });
@@ -78,6 +79,7 @@ describe('/POST users', () => {
         const currentUser = res.body[res.body.length - 1];
 
         res.should.have.status(200);
+
         res.body.length.should.be.eql(currentData.users.length + 1);
 
         currentUser.should.have.property('firstName');
@@ -86,6 +88,7 @@ describe('/POST users', () => {
 
         jsonfile.writeFileSync('./users.json', currentData)
         done();
-      });
+    });
   })
+
 });

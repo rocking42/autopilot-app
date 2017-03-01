@@ -5,10 +5,11 @@ const express = require('express');
 const formError = require('./errors').formError
 const app = express();
 const port = 3000;
-
+// Middlewares for reading the request body
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
+
 // Read data from JSON and display it to the user
 app.get('/users', (req, res) => {
   const data = jsonfile.readFileSync('./users.json');
@@ -16,8 +17,9 @@ app.get('/users', (req, res) => {
 });
 // Update JSON file provided correct form data is given
 app.post('/users', (req, res) => {
+
   if (formError(req.body)) {
-    res.status(400).send("error with form data")
+    res.status(403).send("error with form data")
   } else {
     const file = './users.json'
     const obj = jsonfile.readFileSync(file);
@@ -29,5 +31,5 @@ app.post('/users', (req, res) => {
 })
 
 app.listen(port, function () {
-  console.log('Application running on port 3000!');
+  console.log(`Application running on port ${port}`);
 });
