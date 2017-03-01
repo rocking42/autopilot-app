@@ -1,4 +1,4 @@
-const jsonfile = require('jsonfile')
+const jsonfile = require('jsonfile');
 const bodyParser = require('body-parser');
 const express = require('express');
 const formError = require('./errors').formError
@@ -19,7 +19,6 @@ app.post('/users', (req, res) => {
   } else {
     const file = './users.json'
     const obj = jsonfile.readFileSync(file);
-    console.log(req.body);
     obj.users.push(req.body);
     jsonfile.writeFileSync(file, obj)
     const data = jsonfile.readFileSync(file);

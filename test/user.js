@@ -1,4 +1,5 @@
 const chai = require('chai');
+const jsonfile = require('jsonfile');
 const chaiHttp = require('chai-http');
 const url = 'http://localhost:3000';
 const should = chai.should();
@@ -13,7 +14,6 @@ describe('/GET users', () => {
         if (err) {
           console.log(err);
         }
-        console.log(res.body);
         res.should.have.status(200);
         res.body.should.be.a('array');
         res.body.length.should.be.eql(4);
@@ -32,25 +32,61 @@ describe('/POST users', () => {
       .post('/users')
 	    .send(user)
 	    .end((err, res) => {
+        if (err) {
+          console.log(err);
+        }
 		  	res.should.have.status(200);
         res.text.should.eql('error with data');
         done();
-      })
-  })
+      });
+  });
 
   it('should not POST a book with incorrect form', (done) => {
     const user = {
 	  	firstName: 'Oliver',
       lastName: 'Twist',
-	  	email: 'o@gmail.com'
+	  	email: 'o@gmail.com',
+      badNews: 'I\m coming in'
 	  };
     chai.request(url)
       .post('/users')
       .send(user)
       .end((err, res) => {
+        if (err) {
+          console.log(err);
+        }
         res.should.have.status(200);
         res.text.should.eql('error with data');
         done();
-      })
+      });
+  });
+
+  it('should POST a user when correct data is given', (done) => {
+    const user = {
+	  	firstName: 'Jerry',
+      lastName: 'Seinfeld',
+	  	email: 'js@gmail.com'
+	  };
+    const currentData = jsonfile.readFileSync('./users.json');
+    console.log(currentData.users.length);
+    chai.request(url)
+      .post('/users')
+      .send(user)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        }
+        const currentUser = res.body[res.body.length - 1];
+
+        res.should.have.status(200);
+        res.body.length.should.be.eql(currentData.users.length + 1);
+
+        currentUser.should.have.property('firstName');
+        currentUser.should.have.property('lastName');
+		  	currentUser.should.have.property('email');
+        
+        jsonfile.writeFileSync('./users.json', currentData)
+        done();
+      });
   })
-})
+});
