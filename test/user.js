@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, no-undef*/
 const chai = require('chai');
 const jsonfile = require('jsonfile');
 const chaiHttp = require('chai-http');

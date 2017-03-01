@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, no-undef*/
 const formError = require('../errors').formError;
 const chai = require('chai');
 

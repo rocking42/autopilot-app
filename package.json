@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
