@@ -23,7 +23,7 @@ describe('/GET users', () => {
 });
 
 describe('/POST users', () => {
-  it('should not POST a book when missing a field', (done) => {
+  it('should not POST a user when missing a field', (done) => {
     const user = {
 	  	firstName: 'James',
 	  	email: 'J@gmail.com'
@@ -41,7 +41,7 @@ describe('/POST users', () => {
       });
   });
 
-  it('should not POST a book with incorrect form', (done) => {
+  it('should not POST a user with incorrect form', (done) => {
     const user = {
 	  	firstName: 'Oliver',
       lastName: 'Twist',
